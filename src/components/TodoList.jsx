@@ -5,9 +5,7 @@ import {
     deleteTodo, editTodo, enableEditTodo
 } from "../features/todo";
 
-export default function TodoList(props) {
-
-    const { todoIndex } = props
+export default function TodoList({ todoIndex, isChecked, value, isDeleting, isEditing }) {
 
     const dispatch = useDispatch()
 
@@ -36,19 +34,20 @@ export default function TodoList(props) {
     const handleCancelEdit = () => {
         dispatch(cancelEditTodo(todoIndex))
     }
+
     return (
         <div className="border-b border-[#bebebe] text-gray-800 py-4">
             <div className="flex gap-4 relative" >
-                <input type="checkbox" checked={props.isChecked} onChange={handleCheckboxChange} />
-                {props.isEditing ?
-                    <input type="text" defaultValue={props.value} className="bg-gray-200 p-1 outline-none" onBlur={handleEditClick} /> :
-                    <p className={`text-xl break-words w-[80%] sm:w-[85%] ${props.isChecked ? "line-through" : "no-underline"}`}>
-                        {props.value}
+                <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} />
+                {isEditing ?
+                    <input type="text" defaultValue={value} className="bg-gray-200 p-1 outline-none" onBlur={handleEditClick} /> :
+                    <p className={`text-xl break-words w-[80%] sm:w-[85%] ${isChecked ? "line-through" : "no-underline"}`}>
+                        {value}
                     </p>
                 }
 
                 <div className="absolute top-0 right-0 flex gap-3">
-                    {props.isEditing ?
+                    {isEditing ?
                         <span className="rounded-full cursor-pointer bg-gray-200 p-1" onClick={handleCancelEdit}>
                             <AiOutlineClose color="#ff2700" fontSize={22} />
                         </span>
@@ -57,7 +56,7 @@ export default function TodoList(props) {
                             <AiFillEdit color="#008f94" fontSize={22} onClick={handleEnableEditClick} />
                         </span>
                     }
-                    {!props.isDeleting ?
+                    {!isDeleting ?
                         <span className="rounded-full bg-gray-200 cursor-pointer p-1">
                             <AiFillDelete color="#ff2700" fontSize={22} onClick={handleDeleteClick} />
                         </span>

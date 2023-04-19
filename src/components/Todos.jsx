@@ -1,9 +1,8 @@
+import { useSelector } from "react-redux"
 import TodoInput from "./TodoInput"
 import TodoList from "./TodoList"
-import { useSelector } from "react-redux"
 
 export default function Todos() {
-
     const todos = useSelector(state => state.todos)
 
     return (
@@ -15,11 +14,11 @@ export default function Todos() {
                 </div>
                 <div className="w-full flex flex-col gap-3 pt-8 px-2">
                     {
-                        todos.map(({ value, isChecked, isDeleting, isEditing }, index) => {
+                        todos.map(({ value, isChecked, isDeleting, isEditing }, id) => {
                             return (
                                 <TodoList
-                                    key={index}
-                                    todoIndex={index}
+                                    key={id}
+                                    todoIndex={id}
                                     isChecked={isChecked}
                                     value={value}
                                     isDeleting={isDeleting}
